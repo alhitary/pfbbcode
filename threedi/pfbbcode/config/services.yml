@@ -1,0 +1,18 @@
+services:
+    profilefields.type.string:
+        class: threedi\pfbbcode\profilefields\type\type_string
+        arguments:
+            - '@request'
+            - '@template'
+            - '@user'
+        tags:
+            - { name: profilefield.type }
+
+    profilefields.type.text:
+        class: threedi\pfbbcode\profilefields\type\type_text
+        arguments:
+            - '@request'
+            - '@template'
+            - '@user'
+        tags:
+            - { name: profilefield.type }
