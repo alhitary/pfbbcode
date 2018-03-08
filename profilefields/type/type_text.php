@@ -34,8 +34,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 			5 => array('TITLE' => $this->user->lang['PARSE_SMILIES'],
 						'FIELD' => '<label><input type="radio" class="radio" name="parse_smilies" value="1"' . (($s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_smilies" value="0"' . ((!$s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
 			6 => array('TITLE' => $this->user->lang['PARSE_URLS'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>' .
-								'<input type="hidden" name="field_novalue" value="' . $field_data['field_novalue'] . '" />'),
+						'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>' . '<input type="hidden" name="field_novalue" value="' . $field_data['field_novalue'] . '" />'),
 		));
 		return $options;
 	}
