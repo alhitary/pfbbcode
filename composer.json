@@ -2,8 +2,8 @@
 	"name": "threedi/pfbbcode",
 	"type": "phpbb-extension",
 	"description": "Enables BBCodes to Text and String type Profile Fields.",
-	"version": "1.0.0-RC",
-	"time": "2017-12-25",
+	"version": "1.0.1",
+	"time": "2018-03-08",
 	"keywords": [
 		"phpbb",
 		"extension",
@@ -25,7 +25,7 @@
 			"name": "javiexin",
 			"email": "javiexin@gmail.com",
 			"homepage": "",
-			"role": "Lead Developer"
+			"role": "Past Contributor and Lead Developer"
 		}
 	],
 	"require": {

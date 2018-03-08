@@ -112,7 +112,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 	{
 		if ($step == 2 && $key == 'field_novalue')
 		{
-			if ($this->request->is_set('parse_bbcodes')/* || $this->request->is_set('parse_smilies') || $this->request->is_set('parse_urls')*/)
+			if ($this->request->is_set('parse_bbcodes'))
 			{
 				$s_parse_bbcodes = $this->request->variable('parse_bbcodes', false);
 				$s_parse_smilies = $this->request->variable('parse_smilies', false);
