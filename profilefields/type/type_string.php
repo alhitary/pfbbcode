@@ -25,7 +25,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 	public function get_options($default_lang_id, $field_data)
 	{
 		$s_parse_bbcodes = $this->request->variable('parse_bbcodes', (((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE) ? true : false);
-		$s_parse_smilies = $this->request->variable('parse_smillies', (((int) $field_data['field_novalue']) & OPTION_FLAG_SMILIES) ? true : false);
+		$s_parse_smilies = $this->request->variable('parse_smilies', (((int) $field_data['field_novalue']) & OPTION_FLAG_SMILIES) ? true : false);
 		$s_parse_urls = $this->request->variable('parse_urls', (((int) $field_data['field_novalue']) & OPTION_FLAG_LINKS) ? true : false);
 
 		$options = array_merge(parent::get_options($default_lang_id, $field_data), array(
@@ -45,6 +45,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 	public function validate_profile_field(&$field_value, $field_data)
 	{
 		$field_value_to_validate = $field_value;
+
 		if ($s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE)
 		{
 			$uid = $bitfield = $options = '';
