@@ -59,9 +59,9 @@ class type_string extends \phpbb\profilefields\type\type_string
 	*/
 	public function get_profile_value($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
+		if ($field_value === null && !$field_data['field_show_novalue'])
 		{
-			return null;
+			$field_value = '';
 		}
 
 		if ($field_data['field_novalue'])
@@ -87,9 +87,9 @@ class type_string extends \phpbb\profilefields\type\type_string
 	*/
 	public function get_profile_value_raw($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
+		if ($field_value === null && !$field_data['field_show_novalue'])
 		{
-			return null;
+			$field_value = '';
 		}
 
 		if ($field_data['field_novalue'])
@@ -132,6 +132,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 		if ($key == 'field_novalue')
 		{
 			$current_value = $field_data['field_novalue'];
+
 			if ($this->request->is_set('parse_bbcodes'))
 			{
 				$s_parse_bbcodes = $this->request->variable('parse_bbcodes', false);
@@ -139,6 +140,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 				$s_parse_urls = $this->request->variable('parse_urls', false);
 				$current_value = (($s_parse_bbcodes) ? OPTION_FLAG_BBCODE : 0) + (($s_parse_smilies) ? OPTION_FLAG_SMILIES : 0) + (($s_parse_urls) ? OPTION_FLAG_LINKS : 0);
 			}
+
 			return $current_value ?: '';
 		}
 

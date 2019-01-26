@@ -18,5 +18,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'PFBBCODE_ERROR_321_VERSION'	=>	'Minimum phpBB version required is 3.2.1 but less than 3.3.0@dev',
+	'PFBBCODE_ERROR_325_VERSION'	=>	'Minimum phpBB version required is 3.2.5 but less than 3.3.0@dev',
 ]);

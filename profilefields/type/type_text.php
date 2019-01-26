@@ -60,9 +60,9 @@ class type_text extends \phpbb\profilefields\type\type_text
 	*/
 	public function get_profile_value($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
+		if ($field_value === null && !$field_data['field_show_novalue'])
 		{
-			return null;
+			$field_value = '';
 		}
 
 		if ($field_data['field_novalue'])
@@ -88,9 +88,9 @@ class type_text extends \phpbb\profilefields\type\type_text
 	*/
 	public function get_profile_value_raw($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
+		if ($field_value === null && !$field_data['field_show_novalue'])
 		{
-			return null;
+			$field_value = '';
 		}
 
 		if ($field_data['field_novalue'])
