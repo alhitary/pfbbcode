@@ -67,6 +67,8 @@ class type_text extends \phpbb\profilefields\type\type_text
 
 		if ($field_data['field_novalue'])
 		{
+			$field_value = (!$field_value) ? ' ' : $field_value;
+
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
 			$s_parse_smilies = ((int) $field_data['field_novalue'] & OPTION_FLAG_SMILIES) ? true : false;
@@ -95,6 +97,8 @@ class type_text extends \phpbb\profilefields\type\type_text
 
 		if ($field_data['field_novalue'])
 		{
+			$field_value = (!$field_value) ? ' ' : $field_value;
+
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
 			$s_parse_smilies = ((int) $field_data['field_novalue'] & OPTION_FLAG_SMILIES) ? true : false;

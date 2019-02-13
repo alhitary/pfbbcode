@@ -29,9 +29,9 @@ class ext extends \phpbb\extension\base
 		$user->add_lang_ext('threedi/pfbbcode', 'ext_require');
 		$lang = $user->lang;
 
-		if ( !(phpbb_version_compare(PHPBB_VERSION, '3.2.1', '>=') && phpbb_version_compare(PHPBB_VERSION, '3.3.0@dev', '<')) )
+		if ( !(phpbb_version_compare(PHPBB_VERSION, '3.2.5', '>=') && phpbb_version_compare(PHPBB_VERSION, '3.3.0@dev', '<')) )
 		{
-			$lang['EXTENSION_NOT_ENABLEABLE'] .= '<br>' . $user->lang('PFBBCODE_ERROR_321_VERSION');
+			$lang['EXTENSION_NOT_ENABLEABLE'] .= '<br>' . $user->lang('PFBBCODE_ERROR_325_VERSION');
 			$is_enableable = false;
 		}
 
