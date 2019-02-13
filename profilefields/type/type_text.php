@@ -60,12 +60,12 @@ class type_text extends \phpbb\profilefields\type\type_text
 	*/
 	public function get_profile_value($field_value, $field_data)
 	{
-		if ($field_value === null && !$field_data['field_show_novalue'])
+		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
 		{
-			$field_value = '';
+			return null;
 		}
 
-		if ($field_data['field_novalue'])
+		if (!$field_data['field_novalue'])
 		{
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
@@ -88,12 +88,12 @@ class type_text extends \phpbb\profilefields\type\type_text
 	*/
 	public function get_profile_value_raw($field_value, $field_data)
 	{
-		if ($field_value === null && !$field_data['field_show_novalue'])
+		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
 		{
-			$field_value = '';
+			return null;
 		}
 
-		if ($field_data['field_novalue'])
+		if (!$field_data['field_novalue'])
 		{
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
