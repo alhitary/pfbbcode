@@ -65,7 +65,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 			return null;
 		}
 
-		if (!$field_data['field_novalue'])
+		if ($field_data['field_novalue'])
 		{
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
@@ -93,7 +93,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 			return null;
 		}
 
-		if (!$field_data['field_novalue'])
+		if ($field_data['field_novalue'])
 		{
 			$uid = $bitfield = $options = '';
 			$s_parse_bbcodes = ((int) $field_data['field_novalue'] & OPTION_FLAG_BBCODE) ? true : false;
