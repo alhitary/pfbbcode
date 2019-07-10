@@ -13,6 +13,9 @@ namespace threedi\pfbbcode\helper;
  */
 class pf
 {
+	/**
+	* {@inheritDoc}
+	*/
 	public function pf_validate($field_value, $field_data)
 	{
 		if ($s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE)
@@ -25,6 +28,9 @@ class pf
 		}
 	}
 
+	/**
+	* {@inheritDoc}
+	*/
 	public function pf_profile_values($field_value, $field_data)
 	{
 		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])

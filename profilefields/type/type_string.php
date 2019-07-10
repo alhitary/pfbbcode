@@ -26,8 +26,10 @@ class type_string extends \phpbb\profilefields\type\type_string
 	/**
 	 * Constructor.
 	 *
-	 * @param  \threedi\pfbbcode\helper\pf			$functions			functions object
-	 * @return void
+	 * @param \threedi\pfbbcode\helper\pf	$functions	Custom functions to be used in classes
+	 * @param \phpbb\request\request		$request	Request object
+	 * @param \phpbb\template\template		$template	Template object
+	 * @param \phpbb\user					$user		User object
 	 * @access public
 	 */
 	public function __construct(
