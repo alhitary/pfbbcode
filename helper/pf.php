@@ -13,17 +13,6 @@ namespace threedi\pfbbcode\helper;
  */
 class pf
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param  \phpbb\user								$user			User object
-	 * @return void
-	 * @access public
-	 */
-	public function __construct()
-	{
-	}
-
 	public function pf_validate($field_value, $field_data)
 	{
 		if ($s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE)
@@ -89,6 +78,4 @@ class pf
 
 		return $field_value;
 	}
-
-
 }

@@ -21,4 +21,3 @@ services:
 
     threedi.pfbbcode.helper.pf:
         class: threedi\pfbbcode\helper\pf
-
