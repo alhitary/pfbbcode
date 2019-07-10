@@ -18,7 +18,9 @@ class pf
 		if ($s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE)
 		{
 			$uid = $bitfield = $options = '';
+
 			generate_text_for_storage($field_value, $uid, $bitfield, $options, $s_parse_bbcodes, false, false);
+
 			strip_bbcode($field_value, $uid);
 		}
 	}
