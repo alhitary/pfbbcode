@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Enables BBCodes to Text and String type Profile Fields.",
 	"version": "1.0.2",
-	"time": "2019-01-27",
+	"time": "2019-10-07",
 	"keywords": [
 		"phpbb",
 		"extension",
