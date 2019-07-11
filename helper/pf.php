@@ -40,7 +40,12 @@ class pf
 
 		if ($field_data['field_novalue'])
 		{
-			$field_value = (!$field_value) ? ' ' : $field_value;
+			/**
+			 * This line to prevent errors if the field is empty but forced to be shown.
+			 * /includes/message_parser.php on line 1198: Undefined index: TOO_FEW_CHARS
+			 * A space char, in case, does the trick.
+			 */
+			$field_value = (!empty($field_value)) ? $field_value : ' ';
 
 			$uid = $bitfield = $options = '';
 
