@@ -63,14 +63,18 @@ class type_text extends \phpbb\profilefields\type\type_text
 		$s_parse_urls = ((int) $field_data['field_novalue'] & OPTION_FLAG_LINKS) ? true : false;
 
 		$options = array_merge(parent::get_options($default_lang_id, $field_data), array(
-			4 => array('TITLE' => $this->user->lang['PARSE_BBCODE'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_bbcodes" value="1"' . (($s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_bbcodes" value="0"' . ((!$s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
-
-			5 => array('TITLE' => $this->user->lang['PARSE_SMILIES'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_smilies" value="1"' . (($s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_smilies" value="0"' . ((!$s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
-
-			6 => array('TITLE' => $this->user->lang['PARSE_URLS'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>' . '<input type="hidden" name="field_novalue" value="' . $field_data['field_novalue'] . '" />'),
+			4 => array(
+				'TITLE' => $this->user->lang['PARSE_BBCODE'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_bbcodes" value="1"' . (($s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_bbcodes" value="0"' . ((!$s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'
+			),
+			5 => array(
+				'TITLE' => $this->user->lang['PARSE_SMILIES'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_smilies" value="1"' . (($s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_smilies" value="0"' . ((!$s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'
+			),
+			6 => array(
+				'TITLE' => $this->user->lang['PARSE_URLS'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>' . '<input type="hidden" name="field_novalue" value="' . $field_data['field_novalue'] . '" />'
+			),
 		));
 
 		return $options;
@@ -114,6 +118,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 				$s_parse_bbcodes = $this->request->variable('parse_bbcodes', false);
 				$s_parse_smilies = $this->request->variable('parse_smilies', false);
 				$s_parse_urls = $this->request->variable('parse_urls', false);
+
 				$current_value = (($s_parse_bbcodes) ? OPTION_FLAG_BBCODE : 0) + (($s_parse_smilies) ? OPTION_FLAG_SMILIES : 0) + (($s_parse_urls) ? OPTION_FLAG_LINKS : 0);
 			}
 			return $current_value ?: '';
@@ -150,6 +155,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 			$s_parse_bbcodes = $this->request->variable('parse_bbcodes', false);
 			$s_parse_smilies = $this->request->variable('parse_smilies', false);
 			$s_parse_urls = $this->request->variable('parse_urls', false);
+
 			return ((($s_parse_bbcodes) ? OPTION_FLAG_BBCODE : 0) + (($s_parse_smilies) ? OPTION_FLAG_SMILIES : 0) + (($s_parse_urls) ? OPTION_FLAG_LINKS : 0)) ?: '';
 		}
 
@@ -157,6 +163,7 @@ class type_text extends \phpbb\profilefields\type\type_text
 		{
 			$field_data['rows'] = $this->request->variable('rows', 0);
 			$field_data['columns'] = $this->request->variable('columns', 0);
+
 			return $field_data['rows'] . '|' . $field_data['columns'];
 		}
 
