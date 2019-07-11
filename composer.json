@@ -18,14 +18,8 @@
 		{
 			"name": "3Di",
 			"email": "three3di@hotmail.it",
-			"homepage": "http://3di.space",
+			"homepage": "https://www.phpbbstudio.com",
 			"role": "Developer"
-		},
-		{
-			"name": "javiexin",
-			"email": "javiexin@gmail.com",
-			"homepage": "",
-			"role": "Past Contributor and Lead Developer"
 		}
 	],
 	"require": {

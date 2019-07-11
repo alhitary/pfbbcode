@@ -3,6 +3,7 @@
  *
  * BBCode Enabled Profile Fields. An extension for the phpBB Forum Software package.
  *
+ * @copyright (c) 2019 3Di <https://www.phpbbstudio.com>
  * @copyright (c) 2017 3Di, javiexin
  * @license GNU General Public License, version 2 (GPL-2.0)
  */
@@ -18,5 +19,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'PFBBCODE_ERROR_325_VERSION'	=>	'Minimum phpBB version required is 3.2.5 but less than 3.3.0@dev',
+	'ERROR_PHPBB_VERSION'	=> 'Minimum phpBB version required is %1$s but less than %2$s',
 ]);
