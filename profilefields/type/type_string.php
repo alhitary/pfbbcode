@@ -3,6 +3,7 @@
  *
  * BBCode Enabled Profile Fields. An extension for the phpBB Forum Software package.
  *
+ * @copyright (c) 2019 3Di <https://www.phpbbstudio.com>
  * @copyright (c) 2017 3Di, javiexin
  * @license GNU General Public License, version 2 (GPL-2.0)
  */
@@ -11,6 +12,40 @@ namespace threedi\pfbbcode\profilefields\type;
 
 class type_string extends \phpbb\profilefields\type\type_string
 {
+	/** @var \threedi\pfbbcode\helper\pf */
+	protected $functions;
+
+	/** @var \phpbb\request\request */
+	protected $request;
+
+	/** @var \phpbb\template\template */
+	protected $template;
+
+	/** @var \phpbb\user */
+	protected $user;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param \threedi\pfbbcode\helper\pf	$functions	Custom functions to be used in classes
+	 * @param \phpbb\request\request		$request	Request object
+	 * @param \phpbb\template\template		$template	Template object
+	 * @param \phpbb\user					$user		User object
+	 * @access public
+	 */
+	public function __construct(
+		\threedi\pfbbcode\helper\pf $functions,
+		\phpbb\request\request $request,
+		\phpbb\template\template $template,
+		\phpbb\user $user
+	)
+	{
+		$this->functions	= $functions;
+		$this->request		= $request;
+		$this->template		= $template;
+		$this->user			= $user;
+	}
+
 	/**
 	* {@inheritDoc}
 	*/
@@ -29,13 +64,20 @@ class type_string extends \phpbb\profilefields\type\type_string
 		$s_parse_urls = $this->request->variable('parse_urls', (((int) $field_data['field_novalue']) & OPTION_FLAG_LINKS) ? true : false);
 
 		$options = array_merge(parent::get_options($default_lang_id, $field_data), array(
-			4 => array('TITLE' => $this->user->lang['PARSE_BBCODE'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_bbcodes" value="1"' . (($s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_bbcodes" value="0"' . ((!$s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
-			5 => array('TITLE' => $this->user->lang['PARSE_SMILIES'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_smilies" value="1"' . (($s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_smilies" value="0"' . ((!$s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
-			6 => array('TITLE' => $this->user->lang['PARSE_URLS'],
-						'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'),
+			4 => array(
+				'TITLE' => $this->user->lang['PARSE_BBCODE'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_bbcodes" value="1"' . (($s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_bbcodes" value="0"' . ((!$s_parse_bbcodes) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'
+			),
+			5 => array(
+				'TITLE' => $this->user->lang['PARSE_SMILIES'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_smilies" value="1"' . (($s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_smilies" value="0"' . ((!$s_parse_smilies) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'
+			),
+			6 => array(
+				'TITLE' => $this->user->lang['PARSE_URLS'],
+				'FIELD' => '<label><input type="radio" class="radio" name="parse_urls" value="1"' . (($s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['YES'] . '</label><label><input type="radio" class="radio" name="parse_urls" value="0"' . ((!$s_parse_urls) ? ' checked="checked"' : '') . ' /> ' . $this->user->lang['NO'] . '</label>'
+			),
 		));
+
 		return $options;
 	}
 
@@ -44,15 +86,9 @@ class type_string extends \phpbb\profilefields\type\type_string
 	*/
 	public function validate_profile_field(&$field_value, $field_data)
 	{
-		$field_value_to_validate = $field_value;
+		$this->functions->pf_validate($field_value, $field_data);
 
-		if ($s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE)
-		{
-			$uid = $bitfield = $options = '';
-			generate_text_for_storage($field_value_to_validate, $uid, $bitfield, $options, $s_parse_bbcodes, false, false);
-			strip_bbcode($field_value_to_validate, $uid);
-		}
-		return $this->validate_string_profile_field('string', $field_value_to_validate, $field_data);
+		return $this->validate_string_profile_field('string', $field_value, $field_data);
 	}
 
 	/**
@@ -60,29 +96,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 	*/
 	public function get_profile_value($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
-		{
-			return null;
-		}
-
-		if ($field_data['field_novalue'])
-		{
-			$field_value = (!$field_value) ? ' ' : $field_value;
-
-			$uid = $bitfield = $options = '';
-			$s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE;
-			$s_parse_smilies = ((int) $field_data['field_novalue']) & OPTION_FLAG_SMILIES;
-			$s_parse_urls = ((int) $field_data['field_novalue']) & OPTION_FLAG_LINKS;
-			generate_text_for_storage($field_value, $uid, $bitfield, $options, $s_parse_bbcodes, $s_parse_urls, $s_parse_smilies);
-			$field_value = generate_text_for_display($field_value, $uid, $bitfield, $options);
-		}
-		else
-		{
-			$field_value = make_clickable($field_value);
-			$field_value = censor_text($field_value);
-			$field_value = bbcode_nl2br($field_value);
-		}
-		return $field_value;
+		return $this->functions->pf_profile_values($field_value, $field_data);
 	}
 
 	/**
@@ -90,23 +104,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 	*/
 	public function get_profile_value_raw($field_value, $field_data)
 	{
-		if (($field_value === null || $field_value === '') && !$field_data['field_show_novalue'])
-		{
-			return null;
-		}
-
-		if ($field_data['field_novalue'])
-		{
-			$field_value = (!$field_value) ? ' ' : $field_value;
-
-			$uid = $bitfield = $options = '';
-			$s_parse_bbcodes = ((int) $field_data['field_novalue']) & OPTION_FLAG_BBCODE;
-			$s_parse_smilies = ((int) $field_data['field_novalue']) & OPTION_FLAG_SMILIES;
-			$s_parse_urls = ((int) $field_data['field_novalue']) & OPTION_FLAG_LINKS;
-			generate_text_for_storage($field_value, $uid, $bitfield, $options, $s_parse_bbcodes, $s_parse_urls, $s_parse_smilies);
-			strip_bbcode($field_value, $uid);
-		}
-		return $field_value;
+		return $this->functions->pf_profile_values($field_value, $field_data);
 	}
 
 	/**
@@ -121,6 +119,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 				$s_parse_bbcodes = $this->request->variable('parse_bbcodes', (((int) $current_value) & OPTION_FLAG_BBCODE) ? true : false);
 				$s_parse_smilies = $this->request->variable('parse_smilies', (((int) $current_value) & OPTION_FLAG_SMILIES) ? true : false);
 				$s_parse_urls = $this->request->variable('parse_urls', (((int) $current_value) & OPTION_FLAG_LINKS) ? true : false);
+
 				$current_value = (($s_parse_bbcodes) ? OPTION_FLAG_BBCODE : 0) + (($s_parse_smilies) ? OPTION_FLAG_SMILIES : 0) + (($s_parse_urls) ? OPTION_FLAG_LINKS : 0);
 			}
 			return $current_value ?: '';
@@ -143,6 +142,7 @@ class type_string extends \phpbb\profilefields\type\type_string
 				$s_parse_bbcodes = $this->request->variable('parse_bbcodes', false);
 				$s_parse_smilies = $this->request->variable('parse_smilies', false);
 				$s_parse_urls = $this->request->variable('parse_urls', false);
+
 				$current_value = (($s_parse_bbcodes) ? OPTION_FLAG_BBCODE : 0) + (($s_parse_smilies) ? OPTION_FLAG_SMILIES : 0) + (($s_parse_urls) ? OPTION_FLAG_LINKS : 0);
 			}
 
