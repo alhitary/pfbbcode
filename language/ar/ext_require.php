@@ -3,6 +3,7 @@
  *
  * BBCode Enabled Profile Fields. An extension for the phpBB Forum Software package.
  *
+ * @copyright (c) 2019 3Di <https://www.phpbbstudio.com>
  * @copyright (c) 2017 3Di, javiexin
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
@@ -20,5 +21,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'PFBBCODE_ERROR_321_VERSION'	=>	'الحد الأدنى لنسخة المنتدى 3.2.1 ولكن أقل من 3.3.0@dev',
+	'ERROR_PHPBB_VERSION'	=> 'الحد الأدنى لنسخة المنتدى هو %1$s ولكن أقل من %2$s',
 ]);
